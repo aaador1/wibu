@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wibu</title>
+    <link rel="stylesheet" href="sidepanel.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="mainView" class="main-view">
+        <header class="panel-header">
+          <div class="header-copy">
+            <h1>Wibu: Quick Translation Buddy</h1>
+            <button id="tutorialButton" class="tutorial-link" type="button">
+              How to use Wibu?
+            </button>
+          </div>
+        </header>
+
+        <section
+          id="energyMeter"
+          class="energy-meter"
+          aria-label="Daily energy"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          tabindex="0"
+          role="meter"
+        >
+          <div class="energy-meter-row">
+            <span class="energy-label">Daily energy</span>
+            <span id="energyTooltip" class="energy-tooltip" role="tooltip">
+              About 100% of Wibu's energy left today
+            </span>
+          </div>
+          <div class="energy-track" aria-hidden="true">
+            <div id="energyFill" class="energy-fill"></div>
+          </div>
+        </section>
+
+        <div class="buddy-wrapper wibu-layout">
+          <div class="translation-arrow-row" aria-hidden="true">
+            <svg class="translation-arrow" viewBox="0 0 220 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 18 L185 18" />
+              <path d="M172 10 L185 18 L172 26" />
+            </svg>
+          </div>
+
+          <div class="language-box">
+            <span id="fromPickerLabel" class="picker-label">From</span>
+            <div class="language-picker" data-picker="from">
+              <button
+                id="fromPickerButton"
+                class="language-picker-button"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="fromPickerLabel fromPickerText"
+              >
+                <img id="fromPickerFlag" class="flag-icon" alt="" src="assets/flags/usa.png">
+                <span id="fromPickerText">English</span>
+                <span class="picker-arrow" aria-hidden="true"></span>
+              </button>
+              <div
+                id="fromPickerMenu"
+                class="language-picker-menu"
+                role="listbox"
+                aria-labelledby="fromPickerLabel"
+                hidden
+              ></div>
+            </div>
+          </div>
+
+          <div class="wibu-center">
+            <span id="wibuStar" class="wibu-star" aria-hidden="true">&#9733;</span>
+            <span id="wibuSleep" class="wibu-sleep" aria-hidden="true">Zzz</span>
+            <div id="webBuddyBlob" class="buddy-blob idle">
+              <div class="buddy-face">
+                <span class="eye left-eye"></span>
+                <span class="eye right-eye"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+
+            <div class="buddy-status visually-hidden" id="buddyStatus">
+              Wibu is ready.
+            </div>
+          </div>
+
+          <div class="language-box">
+            <span id="toPickerLabel" class="picker-label">To</span>
+            <div class="language-picker" data-picker="to">
+              <button
+                id="toPickerButton"
+                class="language-picker-button"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="toPickerLabel toPickerText"
+              >
+                <img id="toPickerFlag" class="flag-icon" alt="" src="assets/flags/mexico.png">
+                <span id="toPickerText">Spanish</span>
+                <span class="picker-arrow" aria-hidden="true"></span>
+              </button>
+              <div
+                id="toPickerMenu"
+                class="language-picker-menu"
+                role="listbox"
+                aria-labelledby="toPickerLabel"
+                hidden
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <section class="source-card" aria-labelledby="source-heading">
+          <div class="card-title-row">
+            <h2 id="source-heading">From: <span id="sourceLanguageName">English</span></h2>
+            <button id="clearSelectionButton" class="quiet-button" type="button">Clear</button>
+          </div>
+          <textarea
+            id="selectedText"
+            class="source-text empty"
+            aria-labelledby="source-heading"
+            placeholder="Type, paste, or highlight text on a webpage and choose Ask Wibu."
+            rows="5"
+          ></textarea>
+        </section>
+
+        <button id="translateButton" class="translate-button" type="button">
+          Translate
+        </button>
+
+        <section class="result-card" aria-labelledby="result-heading">
+          <div class="card-title-row">
+            <h2 id="result-heading">To: <span id="resultLanguageName">Spanish</span></h2>
+          </div>
+          <p id="translatedText" class="result-text empty">
+            Your translation will appear here.
+          </p>
+        </section>
+
+        <section class="recent-logs-section" aria-labelledby="logs-heading">
+          <div class="card-title-row">
+            <h2 id="logs-heading">Translation Logs</h2>
+            <span id="logsCount" class="logs-count">0 saved</span>
+          </div>
+
+          <div id="logsList" class="recent-logs-list" aria-live="polite"></div>
+          <p id="emptyLogsMessage" class="empty-logs">
+            Recent translations will appear here.
+          </p>
+
+          <div class="logs-actions">
+            <button id="fullLogsButton" class="full-logs-button" type="button">
+              Access full logs
+            </button>
+            <button class="clear-all-logs-button" type="button" data-clear-all-logs>
+              Clear all logs
+            </button>
+          </div>
+
+          <div class="clear-logs-confirmation" data-clear-logs-confirmation hidden>
+            <p>Are you sure you want to clear all translation logs?</p>
+            <div class="confirmation-actions">
+              <button class="quiet-button" type="button" data-cancel-clear-logs>Cancel</button>
+              <button class="confirm-clear-button" type="button" data-confirm-clear-logs>Clear logs</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="info-notes">
+          <p class="disclaimer">
+            Translations may not be perfect. For legal, medical, financial, or immigration matters, verify important information with a trusted source.
+          </p>
+          <p class="privacy-note">
+            Wibu does not sell your data or use tracking. Logs and language preferences are saved locally in your browser. When you click Translate, the selected text is sent to MyMemory (a translating software) to return a translation.
+          </p>
+        </div>
+      </section>
+
+      <section id="fullLogsView" class="full-logs-view" hidden>
+        <div class="full-logs-header">
+          <div>
+            <h1>Translation Logs</h1>
+            <p id="fullLogsCount">0 saved</p>
+          </div>
+          <button id="closeFullLogsButton" class="quiet-button" type="button">
+            Back to Wibu
+          </button>
+        </div>
+
+        <div id="fullLogsList" class="full-logs-list" aria-live="polite"></div>
+        <p id="emptyFullLogsMessage" class="empty-logs">
+          No saved translations yet.
+        </p>
+        <button class="clear-all-logs-button" type="button" data-clear-all-logs>
+          Clear all logs
+        </button>
+        <div class="clear-logs-confirmation" data-clear-logs-confirmation hidden>
+          <p>Are you sure you want to clear all translation logs?</p>
+          <div class="confirmation-actions">
+            <button class="quiet-button" type="button" data-cancel-clear-logs>Cancel</button>
+            <button class="confirm-clear-button" type="button" data-confirm-clear-logs>Clear logs</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="tutorialView" class="tutorial-view" hidden>
+        <div class="tutorial-header">
+          <div>
+            <h1>How to use Wibu</h1>
+            <p>Highlight text, right-click, then choose Ask Wibu.</p>
+          </div>
+          <button id="closeTutorialButton" class="quiet-button" type="button">
+            Back to Wibu
+          </button>
+        </div>
+
+        <div class="tutorial-card" aria-label="Animated Wibu tutorial">
+          <div class="fake-webpage">
+            <div class="fake-browser-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="sample-sentence">
+              <span class="sample-word">hello</span>
+            </p>
+            <div class="fake-selection"></div>
+            <div class="fake-context-menu">
+              <div>Copy</div>
+              <div class="ask-wibu-menu-item">Ask Wibu</div>
+            </div>
+            <div class="tutorial-sparkle" aria-hidden="true">&#10022;</div>
+            <div class="fake-cursor" aria-hidden="true">
+              <div class="mouse-buttons">
+                <span class="mouse-left-button"></span>
+                <span class="mouse-right-button"></span>
+              </div>
+              <span class="mouse-wheel"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="sidepanel.js"></script>
+  </body>
+</html>
