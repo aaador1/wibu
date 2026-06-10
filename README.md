@@ -3,6 +3,15 @@
 Wibu is a Chrome extension that helps users translate highlighted or manually typed web text through a simple side panel interface.
 
 It was built to make online reading easier for students, language learners, newcomers, and anyone who needs quick translation support while browsing the web.
+## Demo
+
+### Highlight text and translate
+
+![Wibu highlight translation demo](assets/wibu-highlight.gif)
+
+### Translation logs
+
+![Wibu translation logs demo](assets/wibu-logs.gif)
 
 ## Features
 
