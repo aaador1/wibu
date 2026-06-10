@@ -7,11 +7,11 @@ It was built to make online reading easier for students, language learners, newc
 
 ### Highlight text and translate
 
-![Wibu highlight translation demo](assets/wibu-highlight.gif)
+![Wibu highlight translation demo](./assets/demo/wibu-highlight.gif)
 
 ### Translation logs
 
-![Wibu translation logs demo](assets/wibu-logs.gif)
+![Wibu translation logs demo](./assets/demo/wibu-logs.gif)
 
 ## Features
 
